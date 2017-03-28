@@ -5,6 +5,7 @@ import (
 	"github.com/ruandao/jvmgo/ch02/classpath"
 	"strings"
 	"github.com/ruandao/jvmgo/ch03/classfile"
+	"github.com/ruandao/jvmgo/ch04/rtda"
 )
 
 func main() {
@@ -19,13 +20,30 @@ func main() {
 }
 
 func startJVM(cmd *Cmd) {
-	cp := classpath.Parse(cmd.XjreOption, cmd.cpOption)
-	fmt.Printf("classpath: %s class:%v args:%v\n", cp, cmd.class, cmd.args)
+	frame := rtda.NewFrame(100, 100)
+	testLocalVars(frame.LocalVars)
+	testOperandStack(frame.OperandStack)
+}
 
-	className := strings.Replace(cmd.class, ".", "/", -1)
-	cf := loadClass(className, cp)
-	fmt.Println(cmd.class)
-	printClassInfo(cf)
+func testLocalVars(vars rtda.LocalVars) {
+	vars.SetInt(0, 100)
+	vars.SetInt(1, -100)
+	vars.SetLong(2, 2997924580)
+	vars.SetLong(4, -2997924580)
+	vars.SetFloat(6, 3.1415926)
+	vars.SetDouble(7, 2.71828182845)
+	vars.SetRef(9, nil)
+	println(vars.GetInt(0))
+	println(vars.GetInt(1))
+	println(vars.GetLong(2))
+	println(vars.GetLong(4))
+	println(vars.GetFloat(6))
+	println(vars.GetDouble(7))
+	println(vars.GetRef(9))
+}
+
+func testOperandStack(ops *rtda.OperandStack) {
+	
 }
 
 func loadClass(className string, cp *classpath.Classpath) *classfile.ClassFile {
