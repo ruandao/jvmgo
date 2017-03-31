@@ -20,6 +20,7 @@ type Class struct {
 	staticSlotCount		uint
 	staticVars		*Slots
 	initStarted		bool
+	sourceFile		string
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -31,9 +32,23 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.constantPool = newConstantPool(class, cf.ConstantPool())
 	class.fields = newFields(class, cf.Fields())
 	class.methods = newMethods(class, cf.Methods())
+	class.sourceFile = getSourceFile(cf)
 	return class
 }
 
+func getSourceFile(cf *classfile.ClassFile) string {
+	if sfAttr := cf.SourceFileAttribute(); sfAttr != nil {
+		return sfAttr.FileName()
+	}
+	return "Unknown"
+}
+
+func (self *Class) SourceFile() string {
+	return self.sourceFile
+}
+func (self *Class) SuperClass() *Class {
+	return self.superClass
+}
 func (self *Class) IsPrimitive() bool {
 	_, ok := primitiveTypes[self.name]
 	return ok
