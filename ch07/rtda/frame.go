@@ -1,6 +1,6 @@
 package rtda
 
-import "github.com/ruandao/jvmgo/ch06/rtda/heap"
+import "github.com/ruandao/jvmgo/ch07/rtda/heap"
 
 type Frame struct {
 	lower 		*Frame
@@ -22,4 +22,12 @@ func newFrame(thread *Thread, method *heap.Method) *Frame {
 
 func (self *Frame) Method() *heap.Method {
 	return self.method
+}
+
+func (self *Frame) Thread() *Thread {
+	return self.thread
+}
+
+func (self *Frame) RevertNextPC() {
+	self.nextPC = self.thread.pc
 }

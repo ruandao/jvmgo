@@ -2,7 +2,7 @@ package rtda
 
 import (
 	"math"
-	"github.com/ruandao/jvmgo/ch06/rtda/heap"
+	"github.com/ruandao/jvmgo/ch07/rtda/heap"
 )
 
 type OperandStack struct {
@@ -80,4 +80,8 @@ func (self *OperandStack) PushSlot(slot Slot) {
 func (self *OperandStack) PopSlot() Slot {
 	self.size--
 	return self.slots[self.size]
+}
+
+func (self *OperandStack) GetRefFromTop(n uint) *heap.Object {
+	return self.slots[self.size - 1 - n].ref
 }

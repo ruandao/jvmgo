@@ -1,9 +1,9 @@
 package references
 
 import (
-	"github.com/ruandao/jvmgo/ch06/instructions/base"
-	"github.com/ruandao/jvmgo/ch06/rtda"
-	"github.com/ruandao/jvmgo/ch06/rtda/heap"
+	"github.com/ruandao/jvmgo/ch07/instructions/base"
+	"github.com/ruandao/jvmgo/ch07/rtda"
+	"github.com/ruandao/jvmgo/ch07/rtda/heap"
 )
 
 type PUT_STATIC struct {
@@ -17,6 +17,11 @@ func (self *PUT_STATIC) Execute(frame *rtda.Frame) {
 	fieldRef := cp.GetConstant(self.Index).(*heap.FieldRef)
 	field := fieldRef.ResolvedField()
 	class := field.Class()
+	if !class.InitStarted() {
+		frame.RevertNextPC()
+		base.InitClass(frame.Thread(), class)
+		return
+	}
 
 	if !field.IsStatic() {
 		panic("java.lang.IncompatibleClassChangeError")

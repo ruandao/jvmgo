@@ -1,6 +1,6 @@
 package rtda
 
-import "github.com/ruandao/jvmgo/ch06/rtda/heap"
+import "github.com/ruandao/jvmgo/ch07/rtda/heap"
 
 type Frame struct {
 	lower 		*Frame

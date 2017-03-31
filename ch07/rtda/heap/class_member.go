@@ -18,3 +18,10 @@ func (self *ClassMember) copyMemberInfo(memberInfo *classfile.MemberInfo) {
 func (self *ClassMember) Class() *Class {
 	return self.class
 }
+
+func (self *ClassMember) Name() string {
+	return self.name
+}
+func (self *ClassMember) Descriptor() string {
+	return  self.descriptor
+}

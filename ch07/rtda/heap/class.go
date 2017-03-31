@@ -19,6 +19,7 @@ type Class struct {
 	instanceSlotCount	uint
 	staticSlotCount		uint
 	staticVars		*Slots
+	initStarted		bool
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -37,7 +38,11 @@ func (self *Class) IsPublic() bool {
 	return 0 != (self.accessFlags & ACC_PUBLIC)
 }
 
-func (self *Class) isAccessibleTo(other *Class) bool {
+func (self *Class) Name() string {
+	return self.name
+}
+
+func (self *Class) IsAccessibleTo(other *Class) bool {
 	return self.IsPublic() || self.getPackageName == other.getPackageName()
 }
 
@@ -66,4 +71,16 @@ func (self *Class) getStaticMethod(name, descriptor string) *Method {
 		}
 	}
 	return nil
+}
+
+func (self *Class) InitStarted() bool {
+	return self.initStarted
+}
+
+func (self *Class) StartInit() {
+	self.initStarted = true
+}
+
+func (self *Class) GetClinitMethod() *Method {
+	return self.getStaticMethod("<clinit>", "()V")
 }

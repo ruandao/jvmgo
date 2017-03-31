@@ -27,7 +27,7 @@ func (self *MemberRef) isAccessibleTo(d *Class) bool {
 	return d == c
 }
 
-func (self *MethodRef) Name() string {
+func (self *MemberRef) Name() string {
 	return self.name
 }
 

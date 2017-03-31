@@ -9,6 +9,8 @@ import (
 type Cmd struct {
 	helpFlag	bool
 	versionFlag	bool
+	verboseClassFlag bool
+	verboseInstFlag bool
 	cpOption	string
 	XjreOption	string
 	class		string
@@ -25,6 +27,8 @@ func parseCmd() *Cmd {
 	flag.StringVar(&cmd.cpOption, "classpath", "", "classpath")
 	flag.StringVar(&cmd.cpOption, "cp", "", "classpath")
 	flag.StringVar(&cmd.XjreOption, "Xjre", "", "path to jre")
+	flag.BoolVar(&cmd.verboseClassFlag, "verboseClassFlag",  false,"verbose Class Flag")
+	flag.BoolVar(&cmd.verboseInstFlag, "verboseInstFlag", false, "verbose Inst Flag")
 	flag.Parse()
 
 	args := flag.Args()
