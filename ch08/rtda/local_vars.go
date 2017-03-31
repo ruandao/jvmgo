@@ -2,7 +2,7 @@ package rtda
 
 import (
 	"math"
-	"github.com/ruandao/jvmgo/ch06/rtda/heap"
+	"github.com/ruandao/jvmgo/ch08/rtda/heap"
 )
 
 type LocalVars []Slot
@@ -14,6 +14,9 @@ func newLocalVars(maxLocals uint) LocalVars {
 	return nil
 }
 
+func (self LocalVars) GetThis() *heap.Object {
+	return self.GetRef(0)
+}
 func (self LocalVars) SetInt(index uint, val int32) {
 	self[index].num = val
 }

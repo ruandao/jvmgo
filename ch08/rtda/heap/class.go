@@ -34,6 +34,11 @@ func newClass(cf *classfile.ClassFile) *Class {
 	return class
 }
 
+func (self *Class) IsPrimitive() bool {
+	_, ok := primitiveTypes[self.name]
+	return ok
+}
+
 func (self *Class) ComponentClass() *Class {
 	componentClassName := getComponentClassName(self.name)
 	return self.loader.LoadClass(componentClassName)
@@ -51,6 +56,9 @@ func (self *Class) getField(name, descriptor string, isStatic bool) *Field {
 	return nil
 }
 
+func (self *Class) JavaName() string {
+	return strings.Replace(self.name, "/", ".", -1)
+}
 
 func (self *Class) IsPublic() bool {
 	return 0 != (self.accessFlags & ACC_PUBLIC)
