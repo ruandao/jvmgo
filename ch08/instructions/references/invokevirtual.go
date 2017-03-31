@@ -40,3 +40,4 @@ func (self *INVOKE_VIRTUAL) Execute(frame *rtda.Frame) {
 
 	base.InvokeMethod(frame, methodToBeInvoked)
 }
+

@@ -1,6 +1,6 @@
 package heap
 
-import "github.com/ruandao/jvmgo/ch06/classfile"
+import "github.com/ruandao/jvmgo/ch08/classfile"
 
 type ClassMember struct {
 	accessFlags	uint16

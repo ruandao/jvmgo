@@ -38,6 +38,9 @@ func (self *Class) IsPublic() bool {
 	return 0 != (self.accessFlags & ACC_PUBLIC)
 }
 
+func (self *Class) Loader() *ClassLoader {
+	return self.loader
+}
 func (self *Class) Name() string {
 	return self.name
 }
